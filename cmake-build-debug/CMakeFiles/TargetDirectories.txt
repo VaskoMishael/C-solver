@@ -1,0 +1,3 @@
+D:/FIIT/Second semester/ZPrPr2/Solver/cmake-build-debug/CMakeFiles/Solver.dir
+D:/FIIT/Second semester/ZPrPr2/Solver/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/FIIT/Second semester/ZPrPr2/Solver/cmake-build-debug/CMakeFiles/rebuild_cache.dir
