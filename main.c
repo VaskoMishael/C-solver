@@ -20,7 +20,7 @@ makeArrays(int **arr, char input[], int length) {          //put big number from
 
 void collatzConjecture(int **arr, char input[], int length) {
     int sum = 0, addDecimals = 0, twoKei = 0, threePlusOne = 0, *maxArray;
-    makeArrays(&maxArray, input, length);
+    makeArrays(&maxArray, input, length);                       //create maxArray
 
     while (sum != 1) {
         sum = 0;
@@ -49,16 +49,17 @@ void collatzConjecture(int **arr, char input[], int length) {
                 } else addDecimals = 0;
             }
         }
-        for (int n = 0; n < length; ++n) {
+
+        for (int n = 0; n < length; ++n) {              // compare two arrays, write the biggest to the maxArray
             if (maxArray[n] < (*arr)[n]) {
                 for (int m = 0; m < length; ++m) {
                     maxArray[m] = (*arr)[m];
                 }
                 break;
             } else if (maxArray[n] == (*arr)[n]){
-
             } else break;
         }
+
         for (int l = 0; l < length; ++l) {          //sum of all digits in the array
             sum += (*arr)[l];
         }
@@ -67,7 +68,6 @@ void collatzConjecture(int **arr, char input[], int length) {
     if (sum == 1) {                             //if its equals 1, therefore,1 is the only number in digit
         printf("Number of 3k+1 operations: %d\nNumber of 2k operations: %d\nMaximum member: ", threePlusOne,
                twoKei);
-
         printf("%d", maxArray[0]);                //print max digit
         for (int j = 1; j < length; j++) {
             if (maxArray[j] == 0) {
@@ -81,7 +81,6 @@ void collatzConjecture(int **arr, char input[], int length) {
             } else printf("%d", maxArray[j]);
         }
         printf("\n");
-
 
         for (int i = 0; i < length; ++i) {              //free memory
             free(*arr);
