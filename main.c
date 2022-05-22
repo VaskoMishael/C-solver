@@ -14,9 +14,9 @@ void makeArrays(int **arr, char input[], int length) {
         } else {
             (*arr)[i] = atoi(&input[0]);
         }
-        printf("%d\n",(*arr)[i]);
+//        printf("%d\n",(*arr)[i]);
     }
-    printf("\n");
+//    printf("\n");
 }
 
 int main() {
@@ -32,47 +32,64 @@ int main() {
         int *arr, addDecimals = 0;
         makeArrays(&arr, input, length);    //divide into array
 
-        if (arr[length - 1] % 2 == 0) {
-            twoKei += 1;
-            for (int i = length - 1; i >= 0; i--) {
-
-                arr[i] = arr[i] / 2;
-            }
-        } else {
-            threePlusOne += 1;
-            for (int i = length - 1; i >= 0; i--) {
-                arr[i] = arr[i] * 3 + addDecimals;
-                if (i == length - 1) {
-                    arr[i] += 1;
+        while (sum != 1) {
+            sum = 0;
+            if (arr[length - 1] % 2 == 0) {
+                twoKei += 1;
+                for (int i = length - 1; i >= 0; i--) {
+                    if (arr[i] % 2 != 2) {
+                        arr[i] = arr[i] * 10;
+                        arr[i] = arr[i] / 2;
+                        addDecimals = arr[i] % 10;
+                        arr[i] = arr[i] / 10;
+                        arr[i + 1] += addDecimals * 1000;
+                    } else
+                        arr[i] = arr[i] / 2;
                 }
-                if (arr[i] / 10000 > 0) {
-                    addDecimals = arr[i] / 10000;
-                    arr[i] = arr[i] % 10000;
-                } else addDecimals = 0;
+            } else {
+                threePlusOne += 1;
+                for (int i = length - 1; i >= 0; i--) {
+                    arr[i] = arr[i] * 3 + addDecimals;
+                    if (i == length - 1) {
+                        arr[i] += 1;
+                    }
+                    if (arr[i] / 10000 > 0) {
+                        addDecimals = arr[i] / 10000;
+                        arr[i] = arr[i] % 10000;
+                    } else addDecimals = 0;
+                }
             }
+
+            for (int l = 0; l < length; ++l) {          //sum of all digits
+                sum += arr[l];
+            }
+
+            printf("%d", arr[0]);                //print digit
+            for (int j = 1; j < length; j++) {
+                if (arr[j] == 0) {
+                    printf("0000");
+                } else if (arr[j] / 10 == 0) {
+                    printf("000%d", arr[j]);
+                } else if (arr[j] / 100 == 0) {
+                    printf("00%d", arr[j]);
+                } else if (arr[j] / 1000 == 0) {
+                    printf("0%d", arr[j]);
+                } else printf("%d", arr[j]);
+            }
+            printf("\n");
         }
 
-//        printf("%d", arr[0]);
-        for (int j = 0; j < length; j++) {      //print digit
-            if (arr[j] == 0) {
-                printf("0000\n");
-            } else if (arr[j] / 10 == 0) {
-                printf("%000d\n", arr[j]);
-            } else if (arr[j] / 100 == 0) {
-                printf("00%d\n", arr[j]);
-            } else if (arr[j] / 1000 == 0) {
-                printf("0%d\n", arr[j]);
-            } else printf("%d\n", arr[j]);
+        if (sum == 1) {                             //if its equals 1, therefore,1 is the only number in digit
+            printf("Number of 3k+1 operations: %d\nNumber of 2k operations: %d\nMaximum member: %d\n", threePlusOne,
+                   twoKei, maximumMember);
+            threePlusOne = 0;
+            twoKei = 0;
+            maximumMember = 0;
+//            for (int i = 0; i < length; ++i) {
+//                free(arr[i]);
+//            }
+            free(arr);
         }
-//        printf("\n");
-//
-//        for (int l = 0; l < length; ++l) {          //sum of all digits
-//            sum += arr[l];
-//        }
-//        if (sum == 1) {                             //if its equals 1, therefore,1 is the only number in digit
-//            printf("Number of 3k+1 operations: %d\nNumber of 2k operations: %d\nMaximum member: %d\n", threePlusOne,
-//                   twoKei, maximumMember);
-//        }
     }
     return 0;
 }
