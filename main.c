@@ -82,18 +82,18 @@ void collatzConjecture(int **arr, char input[], int length) {
         }
         printf("\n");
 
-        for (int i = 0; i < length; ++i) {              //free memory
+        for (int i = 0; i < length; ++i) {
             free(*arr);
+            free(maxArray);
         }
-        free(maxArray);
         free(arr);
+        free(&maxArray);
     }
 }
 
 int main() {
     char input[1000];
-    int true = 1, threePlusOne = 0, twoKei = 0, maximumMember = 0, sum = 0;
-    while (true) {
+    while (1) {
         printf("Enter digit:\n");
         scanf("%s", input);
         if (strcmp(input, "x") == 0) {          //stop the program, if input is 'x'
